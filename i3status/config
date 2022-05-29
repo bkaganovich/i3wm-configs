@@ -1,0 +1,89 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+	output_format = i3bar
+        colors = true
+        interval = 1
+}
+
+order += "read_file weather"
+#order += "path_exists VPN"
+#order += "ipv6"
+#order += "wireless _first_"
+order += "read_file ip"
+order += "ethernet _first_"
+#order += "battery all"
+#order += "disk /"
+#order += "load"
+order += "read_file kbd"
+order += "memory"
+order += "volume master"
+order += "tztime local"
+
+#keyboard layout
+read_file kbd {
+	color_good = "#ffffff"
+	path = ~/.config/i3status/.layout.cache
+	format = "%content"
+}
+
+#outside temperature
+read_file weather {
+	color_good = "#ffffff"
+	path = ~/.config/i3status/.weather.cache
+	format = "%content"
+}
+
+path_exists VPN {
+	path = "/proc/sys/net/ipv4/conf/wgpia0"
+	format = "%title"
+	format_down = "%title disconnected"
+}
+
+read_file ip {
+	path = ~/.config/i3status/.ip.cache
+	format = "%content"
+}
+
+wireless _first_ {
+        format_up = "%ip"
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        format_up = "%ip"
+        format_down = "E: down"
+}
+
+battery all {
+        format = "%status %percentage %remaining"
+}
+
+disk "/" {
+        format = "%avail"
+}
+
+load {
+        format = "%1min"
+}
+
+memory {
+        format = "%used (%percentage_used) of %total"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+volume master {
+	format_muted = "%volume"
+	format = "%volume"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+}
