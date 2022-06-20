@@ -13,7 +13,8 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+#font pango:monospace 8
+font pango:Fira Sans Regular 8 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -32,7 +33,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 
 # laptop display brightness
 bindsym XF86MonBrightnessUp exec light -A 10
@@ -42,14 +43,14 @@ bindsym XF86MonBrightnessDown exec light -U 10
 set $refresh_i3status killall -SIGUSR1 i3status
 
 # pulseaudio volume control laptop
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym $mod+KP_Add exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym $mod+KP_Subtract exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 #bindsym XF85AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # alsamixer volume control desktop
-bindsym $mod+KP_Add exec amixer -c 1 set Master 1dB+
-bindsym $mod+KP_Subtract exec amixer -c 1 set Master 1dB-
+#bindsym $mod+KP_Add exec amixer -c 1 set Master 1dB+
+#bindsym $mod+KP_Subtract exec amixer -c 1 set Master 1dB-
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -212,7 +213,7 @@ bar {
     urgent_workspace   #EC69A0 #DB3279 #FFFFFF
     binding_mode       #b691d3 #A07CBC #FFFFFF
   }
-  #status_command i3status
+	font pango:monospace 8 
   status_command ~/.config/i3status/i3mod.sh
 	tray_output primary
 }
@@ -221,9 +222,13 @@ exec --no-startup-id xdg-user-dirs-update
 exec --no-startup-id redshift
 exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,il
 
+bindsym $mod+c exec google-chrome
+bindsym $mod+t exec thunar &
+
 # laptop
 #exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 
 # desktop
 exec xrandr --output VGA-1-1 --auto --right-of DVI-I-1
-exec_always --no-startup-id pkill -f nm-applet
+exec --no-startup-id killall nm-applet
+exec --no-startup-id nitrogen --restore
