@@ -33,30 +33,12 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-#exec --no-startup-id nm-applet
-
-# laptop display brightness
-bindsym XF86MonBrightnessUp exec light -A 10
-bindsym XF86MonBrightnessDown exec light -U 10
-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-
-# pulseaudio volume control laptop
-bindsym $mod+KP_Add exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym $mod+KP_Subtract exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-#bindsym XF85AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# alsamixer volume control desktop
-#bindsym $mod+KP_Add exec amixer -c 1 set Master 1dB+
-#bindsym $mod+KP_Subtract exec amixer -c 1 set Master 1dB-
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -213,22 +195,58 @@ bar {
     urgent_workspace   #EC69A0 #DB3279 #FFFFFF
     binding_mode       #b691d3 #A07CBC #FFFFFF
   }
-	font pango:monospace 8 
-  status_command ~/.config/i3status/i3mod.sh
-	tray_output primary
+  font pango:monospace 8 
+  status_command /home/benny/.config/i3status/i3mod.sh
+  tray_output primary
 }
 
 exec --no-startup-id xdg-user-dirs-update
-exec --no-startup-id redshift
-exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,il
+
+#
+# Updated 2022.11.09 11:32
+#
 
 bindsym $mod+c exec google-chrome
 bindsym $mod+t exec thunar &
 
-# laptop
-#exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec --no-startup-id redshift
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id /opt/piavpn/bin/pia-client
+
+# keyboard toggle and layouts
+exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,il
+
+# laptop touchpad tap enable
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+
+# laptop wifi applet
+exec --no-startup-id nm-applet
+
+# laptop power applet
+#exec --no-startup-id xfce4-power-manager
+
+# laptop display brightness
+#sudo chmod 777 /sys/class/backlight/intel_backlight/*
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+
+# Use pactl to adjust volume in PulseAudio.
+#set $refresh_i3status killall -SIGUSR1 i3status
+
+# laptop pulseaudio volume control
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+
+# laptop amixer volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 1 set Master 10dB+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 1 set Master 10dB-
+bindsym XF86AudioMute exec --no-startup-id amixer -c 1 -q -D pulse sset Master toggle
 
 # desktop
-exec xrandr --output VGA-1-1 --auto --right-of DVI-I-1
-exec --no-startup-id killall nm-applet
-exec --no-startup-id nitrogen --restore
+#exec xrandr --output VGA-1-1 --auto --right-of DVI-I-1
+#exec --no-startup-id killall nm-applet
+
+# alsamixer volume control desktop
+#bindsym $mod+KP_Add exec amixer -c 1 set Master 1dB+
+#bindsym $mod+KP_Subtract exec amixer -c 1 set Master 1dB-
