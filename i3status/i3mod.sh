@@ -1,6 +1,6 @@
 #!/bin/bash
 
-i3status --config ~/.config/i3status/config | while :
+i3status --config /home/benny/.config/i3status/config | while :
 do
 	read line
 	check_kbd() {
@@ -10,12 +10,12 @@ do
 	lang="$(check_kbd)"
 
 	if [ $lang -gt 0 ]; then
-		echo "HE" > ~/.config/i3status/.layout.cache
+		echo "HE" > /home/benny/.config/i3status/.layout.cache
 	else
-		echo "EN" > ~/.config/i3status/.layout.cache
+		echo "EN" > /home/benny/.config/i3status/.layout.cache
 	fi
 
-	echo "$(curl -s ifconfig.me)" > ~/.config/i3status/.ip.cache
+	echo "$(curl -s ifconfig.me)" > /home/benny/.config/i3status/.ip.cache
 
 	echo $line
 done
