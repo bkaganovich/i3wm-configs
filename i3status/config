@@ -32,14 +32,14 @@ order += "tztime local"
 #keyboard layout
 read_file kbd {
 	color_good = "#ffffff"
-	path = /home/benny/.config/i3status/.layout.cache
+	path = ~/.config/i3status/.layout.cache
 	format = "%content"
 }
 
 #outside temperature
 read_file weather {
 	color_good = "#ffffff"
-	path = /home/benny/.config/i3status/.weather.cache
+	path = ~/.config/i3status/.weather.cache
 	format = "%content"
 }
 
@@ -50,7 +50,7 @@ path_exists VPN {
 }
 
 read_file ip {
-	path = /home/benny/.config/i3status/.ip.cache
+	path = ~/.config/i3status/.ip.cache
 	format = "%content"
 }
 
@@ -85,7 +85,7 @@ memory {
 volume master {
 	#format_muted = "(%volume)"
 	#format = "%volume"
-	device = "hw:1"
+	#device = "hw:1"
 }
 
 tztime local {
