@@ -38,7 +38,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -194,30 +194,30 @@ bar {
         inactive_workspace #8C8C8C #4C4C4C #888888
         urgent_workspace   #EC69A0 #DB3279 #FFFFFF
         binding_mode       #b691d3 #A07CBC #FFFFFF
-      }
-      font pango: monospace 8 
-      status_command ~/.config/i3status/i3mod.sh
+    }
+    font pango: monospace 8 
+    status_command ~/.config/i3status/i3mod.sh
 #      tray_output primary
 }
 
 exec --no-startup-id xdg-user-dirs-update
 
-#
-# Updated 2022.11.26 20:38
-#
+# Updated:
+# Sun 08 Jan 2023 08:23:30 IST
 
 bindsym $mod+c exec google-chrome
 bindsym $mod+t exec thunar &
 
 exec --no-startup-id redshift
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id /opt/piavpn/bin/pia-client
+exec_always --no-startup-id /opt/piavpn/bin/pia-client
 
 # keyboard toggle and layouts
-exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,il
+#exec_always --no-startup-id watch -n 1 ~/.config/i3status/keyboard.sh &
+exec --no-startup-id setxkbmap -option grp:alt_shift_toggle us,il 
 
 # laptop touchpad tap enable
-#exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 
 # laptop wifi applet
 exec --no-startup-id nm-applet

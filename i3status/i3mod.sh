@@ -3,17 +3,22 @@
 i3status --config $HOME/.config/i3status/config | while :
 do
 	read line
-	check_kbd() {
-		xset -q | grep -A 0 'LED' | cut -c59-67
-	}
+   
+    watch -n 1 $HOME/.config/i3status/keyboard.sh &
 
-	lang="$(check_kbd)"
+    # Get the current keyboard layout
+    #layout=$(xkb-switch)
 
-	if [ $lang -gt 0 ]; then
-		echo "HE" > $HOME/.config/i3status/.layout.cache
-	else
-		echo "EN" > $HOME/.config/i3status/.layout.cache
-	fi
+    # Check the layout and print the appropriate message
+    #if [ "$layout" == "il" ]; then
+    #    echo "il" > .$HOME/.config/i3status/keyboard.cache
+    #elif [ "$layout" == "us" ]; then
+    #    echo "us" > $HOME/.config/i3status/.keyboard.cache
+    #else
+    #    echo "$layout" > $HOME/.config/i3status/.keyboard.cache
+    #fi
+
+
 
 	echo "$(curl -s ifconfig.me)" > $HOME/.config/i3status/.ip.cache
 
